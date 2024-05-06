@@ -1,1 +1,25 @@
-this is cloud amigo
+pipeline {
+    agent any
+    stages {
+        stage('Checkout') {
+            steps {
+                // Checkout the code from your Git repository
+                git 'https://github.com/GUMMASAISINDHU/jenkins-shared-repository'
+            }
+        }
+        stage('Build') {
+            steps {
+                // Build your project here
+            }
+        }
+        stage('Get Commit ID') {
+            steps {
+                // Retrieve the commit ID (SHA) of the latest commit
+                script {
+                    def commitId = sh(returnStdout: true, script: 'git rev-parse HEAD').trim()
+                    echo "Commit ID: ${commitId}"
+                }
+            }
+        }
+    }
+}
